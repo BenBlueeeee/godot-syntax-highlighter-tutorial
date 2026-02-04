@@ -9,11 +9,11 @@ public enum LineType
     General
 }
 
-public partial class Logger : TextEdit
+public partial class LogTerminal : TextEdit
 {
-	public LoggerSyntaxHighlighter loggerSyntaxHighlighter;
+	public LogSyntaxHighlighter loggerSyntaxHighlighter;
 	
-	public int LineNumber {get; private set;} = 0;
+	public int CurrentLineNumber {get; private set;} = 0;
 	
 	public override void _Ready()
 	{
@@ -23,12 +23,15 @@ public partial class Logger : TextEdit
 		
 		// write the initial line without any \n
 		Text = "$   terminal initialised";
-		LineNumber += 1;
+		CurrentLineNumber += 1;
 		
 		SyntaxHighlighter = loggerSyntaxHighlighter;
 	}
 	
-	public string LineStart => $"\n{LineNumber} :   ";
+	public string LineStart(int lineNumber)
+	{
+		return $"\n{lineNumber} :   ";
+	}
 	
 	public void WriteLine(string phrase, LineType? lineType)
 	{
@@ -36,17 +39,17 @@ public partial class Logger : TextEdit
 		{
 			case LineType.Error:
 			{
-				loggerSyntaxHighlighter.errorLines.Add(LineNumber);
+				loggerSyntaxHighlighter.errorLines.Add(CurrentLineNumber);
 				break;
 			}
 			case LineType.Warning:
 			{
-				loggerSyntaxHighlighter.warningLines.Add(LineNumber);
+				loggerSyntaxHighlighter.warningLines.Add(CurrentLineNumber);
 				break;
 			}
             case LineType.General:
             {
-				loggerSyntaxHighlighter.generalLines.Add(LineNumber);
+				loggerSyntaxHighlighter.generalLines.Add(CurrentLineNumber);
 				break; 
             }
 			default:
@@ -55,8 +58,8 @@ public partial class Logger : TextEdit
 			}
 		}
 		
-		Text += $"{LineStart}{phrase}";
-		LineNumber++;
+		Text += $"{LineStart(CurrentLineNumber)}{phrase}";
+		CurrentLineNumber++;
 		
         // force the most recently printed line to be visible
 		ScrollVertical = float.MaxValue;
