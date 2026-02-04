@@ -11,7 +11,7 @@ public enum LineType
 
 public partial class LogTerminal : TextEdit
 {
-	public LogSyntaxHighlighter loggerSyntaxHighlighter;
+	public LogSyntaxHighlighter logSyntaxHighlighter;
 	
 	public int CurrentLineNumber {get; private set;} = 0;
 	
@@ -19,13 +19,13 @@ public partial class LogTerminal : TextEdit
 	{
 		base._Ready();
 		
-		loggerSyntaxHighlighter = new(this);
+		logSyntaxHighlighter = new(this);
 		
 		// write the initial line without any \n
 		Text = $"$	{DateTime.Now:HH:mm:ss} : terminal initialised";
 		CurrentLineNumber += 1;
 		
-		SyntaxHighlighter = loggerSyntaxHighlighter;
+		SyntaxHighlighter = logSyntaxHighlighter;
 	}
 	
 	public string LineStart(int lineNumber)
@@ -39,17 +39,17 @@ public partial class LogTerminal : TextEdit
 		{
 			case LineType.Error:
 			{
-				loggerSyntaxHighlighter.errorLines.Add(CurrentLineNumber);
+				logSyntaxHighlighter.errorLines.Add(CurrentLineNumber);
 				break;
 			}
 			case LineType.Warning:
 			{
-				loggerSyntaxHighlighter.warningLines.Add(CurrentLineNumber);
+				logSyntaxHighlighter.warningLines.Add(CurrentLineNumber);
 				break;
 			}
             case LineType.Generic:
             {
-				loggerSyntaxHighlighter.genericLines.Add(CurrentLineNumber);
+				logSyntaxHighlighter.genericLines.Add(CurrentLineNumber);
 				break; 
             }
 			default:

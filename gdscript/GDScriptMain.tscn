@@ -1,9 +1,24 @@
-[gd_scene format=3 uid="uid://vw8e5j60jakj"]
+[gd_scene format=3 uid="uid://b37evvsgcmvp6"]
 
-[node name="GDScriptMain" type="Control" unique_id=1897457556]
-layout_mode = 3
+[ext_resource type="Script" uid="uid://kbi5rihwq2r0" path="res://gdscript/log_terminal.gd" id="1_2je68"]
+[ext_resource type="Script" uid="uid://bqxio6bj7y0uj" path="res://gdscript/fake_input.gd" id="2_1slyb"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uu6xs"]
+bg_color = Color(0.07284262, 0.072842635, 0.072842576, 1)
+
+[node name="CSharpMain" type="PanelContainer" unique_id=51683145]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_uu6xs")
+
+[node name="LogTerminal" type="TextEdit" parent="." unique_id=106665944]
+layout_mode = 2
+editable = false
+script = ExtResource("1_2je68")
+
+[node name="FakeInput" type="Node" parent="." unique_id=2122177698 node_paths=PackedStringArray("log_terminal")]
+script = ExtResource("2_1slyb")
+log_terminal = NodePath("../LogTerminal")
