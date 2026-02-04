@@ -13,14 +13,14 @@ public partial class LogSyntaxHighlighter(LogTerminal inputVirtualTerminal) : Sy
 
 	public int HighlightingEndColumn = int.MaxValue;
 	
-	public Color red = new(1, 0.2f, 0.2f);
-	public Color blue = new(0.2f, 0.4f, 1);
-	public Color green = new(1f, 0.4f, .2f);
+	public Color red = new(1, 0.0f, 0.0f);
+	public Color orange = new(1.0f, 0.5f, 0);
+	public Color green = new(0.196f, .545f, .133f);
 	public Color unhighlightedColor = new(0.5f, 0.5f, 0.5f);
 	
 	public System.Collections.Generic.List<int> errorLines = [];
 	public System.Collections.Generic.List<int> warningLines = [];
-	public System.Collections.Generic.List<int> generalLines = [];
+	public System.Collections.Generic.List<int> genericLines = [];
 	
 	private Dictionary WholeLineDict(Color color, int lineNumber)
 	{
@@ -37,11 +37,11 @@ public partial class LogSyntaxHighlighter(LogTerminal inputVirtualTerminal) : Sy
 		};
 	}
 	
-	public override Dictionary _GetLineSyntaxHighlighting(int lineNumber)
+	public override Dictionary _GetLineSyntaxHighlighting(int line)
 	{
-		return errorLines.Contains(lineNumber) ? WholeLineDict(red, lineNumber)
-			 : warningLines.Contains(lineNumber) ? WholeLineDict(blue, lineNumber)
-			 : generalLines.Contains(lineNumber) ? WholeLineDict(green, lineNumber)
+		return errorLines.Contains(line) ? WholeLineDict(red, line)
+			 : warningLines.Contains(line) ? WholeLineDict(orange, line)
+			 : genericLines.Contains(line) ? WholeLineDict(green, line)
 			 : null;
 	}
 }

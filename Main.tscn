@@ -3,21 +3,19 @@
 [ext_resource type="Script" uid="uid://dylu6l8tvim3d" path="res://LogTerminal.cs" id="1_glv2v"]
 [ext_resource type="Script" uid="uid://52an5cf42oy8" path="res://FakeInput.cs" id="2_uu6xs"]
 
-[node name="Main" type="Control" unique_id=955268291]
-layout_mode = 3
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uu6xs"]
+bg_color = Color(0.07284262, 0.072842635, 0.072842576, 1)
+
+[node name="Main" type="PanelContainer" unique_id=51683145]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_uu6xs")
 
 [node name="LogTerminal" type="TextEdit" parent="." unique_id=106665944]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+layout_mode = 2
 editable = false
 script = ExtResource("1_glv2v")
 

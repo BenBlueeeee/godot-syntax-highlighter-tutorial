@@ -6,7 +6,7 @@ public enum LineType
 {
 	Error,
 	Warning,
-    General
+    Generic
 }
 
 public partial class LogTerminal : TextEdit
@@ -22,7 +22,7 @@ public partial class LogTerminal : TextEdit
 		loggerSyntaxHighlighter = new(this);
 		
 		// write the initial line without any \n
-		Text = "$   terminal initialised";
+		Text = $"$	{DateTime.Now:HH:mm:ss} : terminal initialised";
 		CurrentLineNumber += 1;
 		
 		SyntaxHighlighter = loggerSyntaxHighlighter;
@@ -47,9 +47,9 @@ public partial class LogTerminal : TextEdit
 				loggerSyntaxHighlighter.warningLines.Add(CurrentLineNumber);
 				break;
 			}
-            case LineType.General:
+            case LineType.Generic:
             {
-				loggerSyntaxHighlighter.generalLines.Add(CurrentLineNumber);
+				loggerSyntaxHighlighter.genericLines.Add(CurrentLineNumber);
 				break; 
             }
 			default:
